@@ -1,0 +1,10 @@
+.DS_store
+_css versions/
+_js versions/
+data/prep/
+fonts/english/
+fonts/german/
+images/flags unused/
+lib/lib unused/
+misc/
+sounds/sounds prep/
