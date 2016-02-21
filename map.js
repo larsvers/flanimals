@@ -1576,8 +1576,10 @@ d3.select('button#lingo').on('mousedown', function(){
 	
 	d3.select('button#setElementCategory').html(g.buttonLingoLookup.setElementCategory[g.elementBouncer][g.lingoBouncer]); // update category button
 	d3.select('button#setProjection').html(g.buttonLingoLookup.setProjection[g.project.type][g.lingoBouncer]); // update projection button
-	d3.select('button#lingo').html(g.buttonLingoLookup.lingo[g.lingoBouncer]); // update language button
+
 	d3.select('button#supernova').html(g.buttonLingoLookup.supernova[g.lingoBouncer]); // update supernova button
+	d3.select('button#lingo').html(g.buttonLingoLookup.lingo[g.lingoBouncer]); // update language button
+	d3.select('button#stats').html(g.buttonLingoLookup.stats[g.lingoBouncer]); // update supernova button
 
 	d3.select('div#flaglabel').html(g.buttonLingoLookup.points.flags[g.lingoBouncer]);
 	d3.select('div#animallabel').html(g.buttonLingoLookup.points.animals[g.lingoBouncer]); // update point labels	
