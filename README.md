@@ -4,7 +4,7 @@
 
 ---
 
-1. [Rules?] (#how-it-works)
+1. [Rules] (#how-it-works)
 2. [Stats] (#the-stats)
 3. [Supernovas] (#the-supernova)
 4. [Technicalities](the-techincal-stuff)
