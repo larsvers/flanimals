@@ -2434,9 +2434,8 @@ function supernova(position) {
 					
 					d3.selectAll('circle.shreds:nth-child(n+10)')
 						.transition()
-						// .duration(function(d,i) { return i*5; })
 						.duration(40)
-						.delay(function(d,i) { return i*n/250; })
+						.delay(function(d,i) { return i/n*2000; })
 						.ease('cubic')
 						.attr('r', 100)
 						.style('fill', 'firebrick')
@@ -2488,7 +2487,7 @@ function supernova(position) {
 
 							}
 
-						}, 11000); // 11 show what the last star is saying
+						}, 7000); // 11 show what the last star is saying
 						
 
 
