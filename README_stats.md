@@ -1,5 +1,4 @@
-### Game stats
----
+## Game stats
 
 Here's a small stat-interface from *Flanimals*, a [flag- and animal-finding game](http://larsvers.github.io/flanimals/)... 
 

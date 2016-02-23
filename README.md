@@ -1,4 +1,4 @@
-### Flanimals
+## Flanimals
 
 ###### A game of flags, animals and the world in shreds
 

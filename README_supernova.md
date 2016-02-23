@@ -1,5 +1,4 @@
-### The supernova
----
+## The supernova
 
 This snippetry is part of *Flanimals*, a [flag- and animal-finding game](http://larsvers.github.io/flanimals/). But for me the supernova has been a little project in its own right. It's the final act of *Flanimals*, so after you've collected your 178 flags and 111 animals - listening to a lot of bings and grunts - you can sit back and watch the world explode. Few things more relaxing out there really...
 
