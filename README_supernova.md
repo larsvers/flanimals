@@ -28,4 +28,4 @@ As this is JavaScript trying to be *After Effects* and in fact reeling off a sho
 
 --
 
-For the full Flanimals joy [come over here](http://larsvers.github.io/flanimals/)
+For the full *Flanimals* joy [come over here](http://larsvers.github.io/flanimals/)
