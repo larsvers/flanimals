@@ -74,8 +74,8 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 	g.shortlistBouncer = false; // make global as used in various places 
 	g.zoomBouncer = false; // make global as used in various places
 	g.reprojectBouncer = false;
-	g.elementBouncer = 'animals'; // element button (flags or animals)
-	g.lingoBouncer = 'German'; // language bouncer (needs to be capital)
+	g.elementBouncer = 'flags'; // element button (flags or animals)
+	g.lingoBouncer = 'English'; // language bouncer (needs to be capital)
 	g.foundStyle = 'texture'; // styling bouncer for element search. options: texture (for texture.js) and mono (for single colour)
 	
 	g.zoomMinFlags = 100000; // not necessary to be global, yet top position allows easy change
