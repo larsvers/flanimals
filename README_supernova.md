@@ -24,7 +24,7 @@ As this is JavaScript trying to be *After Effects* and in fact reeling off a sho
 
 --
 
-[flanimals_supernova_explosion](images/readme/flanimals_supernova_explosion.gif)
+![flanimals_supernova_explosion](images/readme/flanimals_supernova_explosion.gif)
 
 --
 
