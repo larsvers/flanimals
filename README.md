@@ -1,5 +1,5 @@
 ### Flanimals
----
+
 ###### A game of flags, animals and the world in shreds
 
 ---
@@ -77,26 +77,21 @@ function dataprep(err, data) {
 	// mangling the data
 }
 
-
 vis.map = (function(){ 
 	// the map
 })(); 
-
 
 vis.elements = (function(){
 	// the left panel choosing flags and animals
 })(); 
 
-
 vis.collection = (function(){
 	// the bottom panel collecting found flags and animals
 })(); 
 
-
 vis.points = (function(){
 	// the point logic and top panel
 })(); 
-
 
 vis.stats = (function(){
 	// the visualization of the statistics
