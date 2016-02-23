@@ -1,7 +1,11 @@
 ### Game stats
 ---
 
-Here's another small stat-interface from the Flanimals game, showing the statistics per section. It encodes all stats as sorted lollipop charts per section. We can change the sorting direction and the sorting base - as in either Time or Points. Apart from the usual D3-patterns there are 2 (noteworthy?) features implemented. The modal blurs the background with a CSS filter like so:
+Here's a small stat-interface from *Flanimals*, a [flag- and animal-finding game](http://larsvers.github.io/flanimals/)... 
+
+![flanimals_stats](images/readme/flanimals_stats.png)
+
+It encodes all stats as sorted lollipop charts per section. We can change the sorting direction and the sorting base - as in either Time or Points. Apart from the usual D3-patterns there are 2 (noteworthy?) features implemented. The modal blurs the background with a CSS filter like so:
 
 ```JavaScript
 d3.select('div#container')
@@ -9,8 +13,7 @@ d3.select('div#container')
 	.style('filter', 'blur(20px)');
 ```
 
-
-and the images in the icons are produced as SVG patterns
+and the images in the icons are produced as SVG patterns:
 
 ```JavaScript
 
@@ -34,6 +37,8 @@ data[graphId].forEach(function(el){
 
 ```
 
-`graphId` can be 'animals' or 'flags'.`data[graphId]` is an array of objects with each object containing the stats we want to display (time, points, name of animal or flag etc.). So for each object we found (an animal or a flag) we create a pattern in an SVG defs tag with a unique ID. Within the pattern we append the respective image pulled out of our images folder...
+`graphId` can be *animals* or *flags*.`data[graphId]` is an array of objects with each object containing the stats we want to display (time, points, name of animal or flag etc.). So for each object we found (an *animal* or a *flag*) we create a pattern in an SVG defs tag with a unique ID. Within the pattern we append the respective image pulled out of our images folder...
 
-For the full Flanimals joy go to (attention).
+--
+
+For the full Flanimals joy [come over here](http://larsvers.github.io/flanimals/)
