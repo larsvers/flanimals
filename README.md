@@ -29,7 +29,7 @@ Flags were fine so far but then he got another map:
 
 ![animal_map](images/readme/flanimals_animal_map.png)
 
-Clearly we needed to add animals. So I sat down for a couple of weeks picking 111 animals worth becoming a Flanimal. Finding decent pictures, cutting them, sizing them, collecting sounds for them (damn you muted coati !), gauging their range areas - sometimes from lists, often from range maps (no scientific ground truth claimed) and eventually writing a little app generating arrays of countries each animal roams in based on the eclectic pond of sources I compiled. 
+Clearly we needed to add animals. So I sat down for a couple of weeks picking 111 animals worth becoming a Flanimal. Finding decent pictures, cutting them, sizing them, collecting sounds for them (damn you muted coati), gauging their range areas - sometimes from lists, often from range maps (no scientific ground truth claimed) and eventually writing a little app generating arrays of countries each animal roams in based on the eclectic pond of sources I compiled. 
 
 --
 
