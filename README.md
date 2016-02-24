@@ -11,19 +11,19 @@
 
 ---
 
-This is how flanimals started:
+This is how *Flanimals* started:
 
 ![map](images/readme/flanimals_map_finger_find.png)
 
 It's my son having breakfast in front of a 2x2 meter map finding the flag of Yemen. At the bottom of the map is a strip of flags for each country with an alphanumerical coordinate in the simple form of A1 (not many countries there) or similar. Initially attracted by the pleasing flags, he soon noticed the coordinate next to each flag and after brief decoding instructions stepped on the table to match country to flag.
 
-As I like maps as well as my child I started building Flanimals. The rules are nearly as straightforward as the rules of the original breakfast-map-game. Look at the flag and try and find it on the map. Instead of the 2 finger finding system in a cartesian coordinate system, I went for a slightly different route to joy: a trail your flag leaves during the search, colour-coding how close you are to the country at question. The further away you are the more blue it is - the closer you get the more red your trail becomes.
+As I like maps as well as my child I started building *Flanimals*. The rules are nearly as straightforward as the rules of the original breakfast-map-game. Look at the flag and try and find it on the map. Instead of the 2 finger finding system in a cartesian coordinate system, I went for a slightly different route to joy: a trail your flag leaves during the search, colour-coding how close you are to the country at question. The further away you are the more blue it is - the closer you get the more red your trail becomes.
 
 
 ![flanimals_trail](images/readme/flanimals_trail.png)
 <sub>see [below](#trailgif) for a gif</sub>
 
-This is bringing in a second game or rather sub-game we still do enjoy frequently: hot and cold. Playing question and answer games or seeking games (like I see something you don't see or hit the pot) we guide answer attempts by calling close shots hot and far-off tries cold. It turned out to be a rather good addition to Flanimals bypassing aggressive frustration from any originally unguided flag-search. The visible trail was in fact entireley unintended to start with and only brought to my attention by a bug in the code and immediately adopted by my son. Priceless accidental beauty.
+This is bringing in a second game or rather sub-game we still do enjoy frequently: hot and cold. Playing question and answer games or seeking games (like *I see something you don't see* or *hit the pot*)(don't worry) we guide answer attempts by calling close shots hot and far-off tries cold. It turned out to be a rather good addition to Flanimals bypassing aggressive frustration from any originally unguided flag-search. The visible trail was in fact entireley unintended to start with and only brought to my attention by a bug in the code and immediately adopted by my son. Priceless accidental beauty.
 
 Flags were fine so far but then he got another map:
 
