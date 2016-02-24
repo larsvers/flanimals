@@ -13,7 +13,7 @@
 
 This is how flanimals started:
 
-![map](flanimals_map_finger_find.png)
+![map](images/readme/flanimals_map_finger_find.png)
 
 It's my son having breakfast in front of a 2x2 meter map finding the flag of Yemen. At the bottom of the map is a strip of flags for each country with an alphanumerical coordinate in the simple form of A1 (not many countries there) or similar. Initially attracted by the pleasing flags, he soon noticed the coordinate next to each flag and after brief decoding instructions stepped on the table to match country to flag.
 
@@ -27,7 +27,7 @@ This is bringing in a second game or rather sub-game we still do enjoy frequentl
 
 Flags were fine so far but then he got another map:
 
-![animal_map](flanimals_animal_map.png)
+![animal_map](images/readme/flanimals_animal_map.png)
 
 Clearly we needed to add animals. So I sat down for a couple of weeks picking 111 animals worth becoming a Flanimal. Finding decent pictures, cutting them, sizing them, collecting sounds for them (damn you muted coati !), gauging their range areas - sometimes from lists, often from range maps (no scientific ground truth claimed) and eventually writing a little app generating arrays of countries each animal roams in based on the eclectic pond of sources I compiled. 
 
