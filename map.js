@@ -32,7 +32,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 	// save data as a window object to let every function have access to it http://stackoverflow.com/questions/9491885/csv-to-array-in-d3-js
 	window.g = window.g || {};
 
-	/* globals */
+	/* global variables */
 
 	// make data global
 	g.mapdata = topojson.feature(worlddata, worlddata.objects.ne_110m_admin_0_countries); // controller init func needs to go in async data call
@@ -45,7 +45,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 	// utility
 	g.formatSep = d3.format(',');
 	g.kolor = d3.scale.linear()
-		.domain([0, Math.PI*.5, Math.PI]) // 2 * Pi = ~6.28 Radians, the longest possible distance from eg. 0,0 to 0,180
+		.domain([0, Math.PI*0.5, Math.PI]) // 2 * Pi = ~6.28 Radians, the longest possible distance from eg. 0,0 to 0,180
 		.range(['#d7191c', '#abd9e9', '#2c7bb6']); // colour scale
 
 	// map objects
@@ -57,17 +57,17 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 	g.scale; // make the scale global as it's used in vis.map.init and the zoom-functions
 	g.bounds; // make the bounds global as it's used in vis.map.init and the projection setting function
 	g.sphere; // make the sphere global as it's used in vis.map.init and the zoom-functions
-	g.worldupdate // make worldupdate global as it's the the world-paths to be updated by all wordl-updating functons
+	g.worldupdate; // make worldupdate global as it's the the world-paths to be updated by all wordl-updating functons
 	
 	g.width = window.innerWidth;
 	g.height = window.innerHeight;
-	g.widthElem = g.width * .2; // unused in fact
-	g.heightElem = g.height * .7; // used to control elements size
-	g.heightFactor = .15; // used to control elements size
+	g.widthElem = g.width * 0.2; // unused in fact
+	g.heightElem = g.height * 0.7; // used to control elements size
+	g.heightFactor = 0.15; // used to control elements size
 
 	// trackers, bouncers and limits
 	g.geoToFind; // make global as used in various places
-	g.itemToFind // make global as used for non-flag-items with more complex identifier (beyond just the three-letter country id). Set to the ID of the dragged element at dragstart, set to undefinde at dragend. Identifies the element that's currently being dragged to remove it from the shortlist when it is found. Not necessary for flags as they can be defined by the countries ID, but bitterly needed for the animals for example.
+	g.itemToFind; // make global as used for non-flag-items with more complex identifier (beyond just the three-letter country id). Set to the ID of the dragged element at dragstart, set to undefinde at dragend. Identifies the element that's currently being dragged to remove it from the shortlist when it is found. Not necessary for flags as they can be defined by the countries ID, but bitterly needed for the animals for example.
 	g.findCentroid; // make global as used in dragstart and map-update
 	g.mouseCentroid; // not really necessary to be global, yet better code readability
 	
@@ -206,7 +206,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 				German: 'tiere'
 			}
 		}
-	} // lookup for switching the language (note: button show the opposite option)
+	}; // lookup for switching the language (note: button show the opposite option)
 
 	g.tooltipGeneral = {
 		populationBig: {
@@ -296,7 +296,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 			}
 		}
 		
-	} // text for tooltip
+	}; // text for tooltip
 
 	g.u; // the texture.js pattern variable
 	
@@ -335,7 +335,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 			subregion: 'South America'
 		},
 		type: 'Feature'
-	} // build french guiana geojson object
+	}; // build french guiana geojson object
 	var l = g.mapdata.features.length;
 	g.mapdata.features[l] = guiana; // add french guiana object to end of the g.mapdata features array
 
@@ -351,13 +351,13 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 			region: d.properties.subregion,
 			cId: g.continentId[d.properties.continent],
 			rId: g.regionId[d.properties.subregion]
-		}
+		};
 	}); // data for the elements
 
 	var arr = [];
 	g.flagDataOrig.forEach(function(el){
 		arr.push(el.continent);
-	})	
+	});
 
 	// data: create a dataset for each element-category. This will decrease when elements are found
 	g.flagData = _.cloneDeep(g.flagDataOrig);
@@ -380,7 +380,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 			case 'animals':
 				animals(); break;
 			default: 
-				console.error('g.elementBouncer issues')
+				console.error('g.elementBouncer issues');
 		}
 
 		function flags() {
@@ -389,7 +389,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 				var l = g.flagData.length;
 				var rand = Math.floor(Math.random() * l);
 				g.shortlist.push(g.flagData[rand]);
-				g.flagData.splice(rand,1)
+				g.flagData.splice(rand,1);
 			} // loop g.elementsShown times or g.flagData.length times if there are fewer elements than g.elementsShown left (otherwise shortlist would push empty elements into array which coulnd't be mapped in next step)
 
 			g.shortlist = g.shortlist.map(function(d, i) {
@@ -403,7 +403,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 					xo: 0, // original x-position for drag-end
 					yo: ((g.heightElem * g.heightFactor) + 10) * i, // original y-position for drag-end
 					found: 0
-				}
+				};
 			});
 			
 		}
@@ -414,7 +414,7 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 				var l = g.animalData.length;
 				var rand = Math.floor(Math.random() * l);
 				g.shortlist.push(g.animalData[rand]);
-				g.animalData.splice(rand,1)
+				g.animalData.splice(rand,1);
 			} // loop g.elementsShown times or g.animalData.length times if there are fewer elements than g.elementsShown left (otherwise shortlist would push empty elements into array which coulnd't be mapped in next step)
 
 			g.shortlist = g.shortlist.map(function(d, i) {
@@ -431,14 +431,14 @@ function dataprep(err, worlddata, animaldata, countrytranslationdata) {
 					yo: ((g.heightElem * g.heightFactor) + 10) * i, // original y-position for drag-end
 					found: 0,
 					sorting: d.sorting
-				}
+				};
 			});
 						
 		}
 
 		return g.shortlist;
 		
-	} // g.updateShortlist()
+	}; // g.updateShortlist()
 
 	g.touchDirXArray = []; // array to hold the x-positions to calculate the move-direction (replacing event.movementX not supported on touch devices)
 	g.moveDirXArray = []; // array to hold the x-positions to calculate the move-direction (replacing event.movementX not supported on IE or Safari)
@@ -475,7 +475,7 @@ vis.map = (function(){
 	  g.project[g.project.type].scale(1).translate([0, 0]); // required to make the scale s below work
 
 		g.bounds = g.path.bounds(g.mapdata);
-		g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * .75;
+		g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * 0.75;
 
 		g.project[g.project.type]
 			.scale(g.scale)
@@ -524,7 +524,7 @@ vis.map = (function(){
 			.attr('width', g.width)
 			.attr('height', g.height); // rect under flat world to register move listeners on
 
-	} // vis.map.init
+	}; // vis.map.init
 
 	my.update = function(){
 
@@ -535,7 +535,7 @@ vis.map = (function(){
 
 		g.worldupdate = worldenter.append('path')
 			.attr('d', g.path)
-			.attr('class', function(d) { return 'world ' + g.continentId[d.properties.continent] + ' ' + g.regionId[d.properties.subregion] })
+			.attr('class', function(d) { return 'world ' + g.continentId[d.properties.continent] + ' ' + g.regionId[d.properties.subregion]; })
 			.attr('id', function(d) { return d.properties.adm0_a3; }); // update
 
 		d3.selectAll('.world').on('mouseover', mouseover); // mouseover listener
@@ -547,7 +547,7 @@ vis.map = (function(){
 
 
 
-	} // vis.map.update
+	}; // vis.map.update
 
 	return my;
 	
@@ -570,7 +570,7 @@ vis.elements = (function(){
 		.append('div')
 		.attr('id', 'elements');
 		
-	}
+	};
 
 	my.update = function(data){
 
@@ -589,16 +589,16 @@ vis.elements = (function(){
 			.attr('id', function(d) { return d.id; })
 			.style('top', function(d,i) { return (((g.heightElem * g.heightFactor) + 10) * i) + 'px'; }) // the y-position is a function of the height of the element, a size-controlling factor and 10 pixel for a bottom-margin defining the distance between the elements
 			.style('left', '0px')
-			.style('opacity', .8)
+			.style('opacity', 0.8)
 			.style('height', 1e-6 + 'px')
-			.call(trans.appearingElementDiv, (g.heightElem * g.heightFactor * .6)); // staggered entrance with delay(), transition to normal font-size
+			.call(trans.appearingElementDiv, (g.heightElem * g.heightFactor * 0.6)); // staggered entrance with delay(), transition to normal font-size
 	
 		item.append('div')
 			.attr('class', 'subitem')
 			.attr('id', function(d) { return d.id; })
 			.html(function(d) { return d[('name' + g.lingoBouncer)]; })
-			.style('font-size', function(d) { return 1e-6 + 'px'})
-			.call(trans.appearingElementText, (g.heightElem * g.heightFactor * .15)); // staggered entrance with delay(), transition to normal font-size
+			.style('font-size', function(d) { return 1e-6 + 'px'; })
+			.call(trans.appearingElementText, (g.heightElem * g.heightFactor * 0.15)); // staggered entrance with delay(), transition to normal font-size
 
 		item.append('img')
 			.attr('class', 'subitem')
@@ -619,7 +619,7 @@ vis.elements = (function(){
 		d3.selectAll('.item')
 			.call(drag);
 
-	}
+	};
 		
 	// create one collectionArry for each element category (otherwise flags and animals end up in both collection divs. and dogs will sleep with cats)
 	var collectionArrayFlags = [];
@@ -640,7 +640,7 @@ vis.elements = (function(){
 			
 		} else if(g.elementBouncer === 'animals') {
 
-			g.geoToFind = d.country // set geoToFind variable to be the array of countries to find
+			g.geoToFind = d.country; // set geoToFind variable to be the array of countries to find
 			
 			if(g.geoToFind.length === 1) {
 
@@ -671,13 +671,13 @@ vis.elements = (function(){
 			
 		} else {
 			
-			g.zoomBouncer = true
+			g.zoomBouncer = true;
 			
 		} // area size of countries to find for flags and number of countries to find for animals decides about zoom or not zoom when projected flat.
 		
 		getPoints('start'); // kick-start flag point calculation
 
-	} // dragstart
+	}; // dragstart
 
 	my.dragmove = function(d) {
 
@@ -685,13 +685,13 @@ vis.elements = (function(){
 		d3.select(this)
 			.style('left', (d3.event.x) + 'px')
 			.style('top', (d3.event.y) + 'px');
-	} // dragmove
+	}; // dragmove
 
 	my.dragend = function(d) {
 
 		if(d.found) {
 				
-			if(d3.select('div#collection').empty()) { vis.collection.init(); };
+			if(d3.select('div#collection').empty()) { vis.collection.init(); }
 			
 			// move element into collection
 			d3.select(this).call(trans.dragendMoveElementToCollection); 
@@ -729,7 +729,7 @@ vis.elements = (function(){
 
 		if(g.reprojectBouncer === false) setOriginalMapState(50); // re-colour and reproject but only if it's not currently recolouring /-projecting (can happen if country found or at dragend)
 
-	} // dragend
+	}; // dragend
 
 	return my;
 
@@ -771,7 +771,7 @@ vis.collection = (function(){
 		.attr('class', 'subcollection')
 		.attr('id', 'animalsCollection');
 				
-	} // vis.collection.init
+	}; // vis.collection.init
 
 	my.update = function(data){
 
@@ -791,9 +791,9 @@ vis.collection = (function(){
 		piece.append('img')
 				.attr('class', 'subpiece')
 				.attr('id', function(d) { return d.id; })
-				.attr('src', function(d) { return 'images/' + d.filename + '.png' })
+				.attr('src', function(d) { return 'images/' + d.filename + '.png'; })
 				.style('height', 0)
-				.call(trans.heightImage, (g.heightElem * g.heightFactor * .35) + 'px');
+				.call(trans.heightImage, (g.heightElem * g.heightFactor * 0.35) + 'px');
 				// .call(trans.heightImage, heightLookup[g.elementBouncer]);
 
 		piece.append('div')
@@ -801,7 +801,7 @@ vis.collection = (function(){
 				.attr('id', function(d) { return d.id; })
 				.html(function(d) { return d[('name' + g.lingoBouncer)]; })
 				.style('font-size', 0)
-				.call(trans.fontSizeImg,(g.heightElem * g.heightFactor * .125) + 'px');
+				.call(trans.fontSizeImg,(g.heightElem * g.heightFactor * 0.125) + 'px');
 
 		// listeners for collection pieces (need to be inside update sub-module)
 
@@ -834,8 +834,8 @@ vis.collection = (function(){
 
 			var id = d3.select(this).attr('id');
 
-			d3.select('div.subpiece#' + id).transition().style('opacity', .6);
-			d3.select('img.subpiece#' + id).transition().style('opacity', .4);
+			d3.select('div.subpiece#' + id).transition().style('opacity', 0.6);
+			d3.select('img.subpiece#' + id).transition().style('opacity', 0.4);
 			
 			d3.selectAll('div.tooltip').transition().style('opacity', 0); // fade out animal tooltip
 
@@ -949,7 +949,7 @@ vis.collection = (function(){
 		
 		
 
-	} // vis.collection.update
+	}; // vis.collection.update
 	
 	return my;
 
@@ -1011,7 +1011,7 @@ vis.points = (function(){
 		.style('fill', '#555'); // add the initial animal number
 		
 		
-	} // vis.points.init
+	}; // vis.points.init
 
 	my.updateTotal = function(){
 		
@@ -1035,7 +1035,7 @@ vis.points = (function(){
 				};
 			}); // count up to new number of flag points
 			
-	} // vis.points.updateTotal
+	}; // vis.points.updateTotal
 
 	my.updateFlags = function(){
 		
@@ -1061,7 +1061,7 @@ vis.points = (function(){
 		d3.select('div#flagcount > span.points')
 			.html(g.flagsFound); // change the flagcount
 
-	} // vis.points.updateFlags
+	}; // vis.points.updateFlags
 
 	my.updateAnimals = function(){
 		
@@ -1087,7 +1087,7 @@ vis.points = (function(){
 		d3.select('div#animalcount > span.points')
 			.html(g.animalsFound); // change the animal count
 		
-	} // vis.points.updateAnimals
+	}; // vis.points.updateAnimals
 	
 	return my;
 	
@@ -1169,7 +1169,7 @@ vis.stats = (function(){
 		d3.select('div#statistics')
 			.transition()
 			.duration(100)
-			.style('background-color', 'rgba(255, 165, 0, .6)');
+			.style('background-color', 'rgba(255, 165, 0, 0.6)');
 
 		d3.select('div#container')
 			.style('-webkit-filter', 'blur(20px)')
@@ -1194,7 +1194,7 @@ vis.stats = (function(){
 
 		d3.select('img#close').on('mouseout', function(){
 
-			d3.select('img#close').style('opacity', .7);
+			d3.select('img#close').style('opacity', 0.7);
 
 		}); // stand back
 		
@@ -1214,7 +1214,7 @@ vis.stats = (function(){
 		my.initGraph('flags'); // initiate the graph
 		my.initGraph('animals'); // initiate the graph
 		
-	} // vis.stats.initContainer()
+	}; // vis.stats.initContainer()
 	
 	my.initGraph = function(graphId){
 		
@@ -1225,10 +1225,10 @@ vis.stats = (function(){
 	
 		if(graphId === 'flags'){
 			var dataset = 'flagpointsPerCountry';
-			var dataOrig = 'flagDataOrig'
+			var dataOrig = 'flagDataOrig';
 		} else if (graphId === 'animals'){
 			var dataset = 'animalpointsPerArea';
-			var dataOrig = 'animalDataOrig'
+			var dataOrig = 'animalDataOrig';
 		} // to make following data function generic
 
 		for (var key in g[dataset]){
@@ -1268,7 +1268,7 @@ vis.stats = (function(){
 
 			d3.select('div.totalStats#total').html(totalText);
 			
-		}; // add total points and search time into the header
+		} // add total points and search time into the header
 
 
 		/* set-up graph */ 
@@ -1296,7 +1296,7 @@ vis.stats = (function(){
 		lines[graphId]
 			.transition()
 			.delay(function(d,i){ return i * 250 / n; })
-			.attr('x2', function(d) { return xScale[graphId](d[metric]); })
+			.attr('x2', function(d) { return xScale[graphId](d[metric]); });
 
 			
 		label[graphId] = svg.selectAll('.labels')
@@ -1332,7 +1332,7 @@ vis.stats = (function(){
 		circles[graphId]
 			.transition()
 			.delay(function(d,i){ return i * 250 / n; })
-			.attr('cx', function(d){ return xScale[graphId](d[metric]); })
+			.attr('cx', function(d){ return xScale[graphId](d[metric]); });
 
 		var defs = svg.append('defs'); // define defs element (within svg.g element)
 
@@ -1403,7 +1403,7 @@ vis.stats = (function(){
 		
 		d3.select('button.statsBtn#points').on('mousedown', function(){
 
-			metric = 'points'
+			metric = 'points';
 			
 			d3.selectAll('button.statsBtn').style('background-image', 'none');
 			d3.select(this).style('background-image', 'url(images/other/zoombutton.png)'); // change buttons
@@ -1415,7 +1415,7 @@ vis.stats = (function(){
 
 		d3.select('button.statsBtn#time').on('mousedown', function(){
 
-			metric = 'time'
+			metric = 'time';
 
 			d3.selectAll('button.statsBtn').style('background-image', 'none');
 			d3.select(this).style('background-image', 'url(images/other/zoombutton.png)'); // change buttons
@@ -1426,7 +1426,7 @@ vis.stats = (function(){
 		}); // change metric event
 
 		
-	} // vis.stats.initGraph()
+	}; // vis.stats.initGraph()
 
 	my.update = function(graphId){
 		
@@ -1478,7 +1478,7 @@ vis.stats = (function(){
 			.attr('fill', function(d){ return 'url(#' + d.id + ')'; }); // update picture
 		
 		
-	} // vis.stats.updateGraph()
+	}; // vis.stats.updateGraph()
 	
 	return my;
 	
@@ -1506,7 +1506,7 @@ d3.select('button#setElementCategory').on('mousedown', function(){
 	elementData.forEach(function(el){
 		if(foundElementsId.indexOf(el.id) === -1) {
 			unfoundElementsId.push(el.id);
-		};
+		}
 	}); // create array of non-found element id's
 	
 	if(g.elementBouncer === 'animals') {
@@ -1601,7 +1601,7 @@ d3.select('button#supernova').on('mousedown', function(){
 		.attr('id', 'confirmEnd')
 		.html(g.buttonLingoLookup.supernovaConfirm.question[g.lingoBouncer])
 		.transition()
-		.style('opacity', .9); // create alert box
+		.style('opacity', 0.9); // create alert box
 
 	d3.select('div#confirmEnd')
 		.append('div')
@@ -1622,7 +1622,7 @@ d3.select('button#supernova').on('mousedown', function(){
 	d3.select('button#btnYes').on('mousedown', finalTurn1); // listen to the yes button
 	d3.select('button#btnNo').on('mousedown', function() { 
 		if (wasFlat) setProjection(); // if the world was flat reproject to flat projection
-		d3.select('div#confirmEnd').remove() 
+		d3.select('div#confirmEnd').remove();
 	}); // listen to the no button
 
 }); // kill the game and kick-off the supernova
@@ -1638,7 +1638,7 @@ d3.selectAll('button').on('touchend', function(){
 	
 	d3.select(this)
 		.style('color', '#555')
-		.style('background-color', 'rgba(255, 255, 255, .7)'); // un:hover the button for touch-logic by just counteracting the main :hover styles inline
+		.style('background-color', 'rgba(255, 255, 255, 0.7)'); // un:hover the button for touch-logic by just counteracting the main :hover styles inline
 
 }); // touchend listener and handler
 
@@ -1665,7 +1665,7 @@ function mouseover(d,i){
 
 		if (!isNaN(g.mouseCentroid[0]) && g.findCentroid !== undefined && g.geoToFind !== undefined) {
 			var distance = d3.geo.distance(g.mouseCentroid, g.findCentroid); // only calculate if both have values and geoToFind is defined
-		}; // calulate the distance between mouse and country-to-find
+		} // calulate the distance between mouse and country-to-find
 
 		d3.selectAll('path#' + countryId)
 			.style('fill', g.kolor(distance)); // best effect ever (wasn't me - coincidental find, but stan likes it too) ! colours the searched countries more blue when further away and more red when close. all other countries remain base colour. hence shows the trace of all visited countires.
@@ -1700,7 +1700,7 @@ function mouseover(d,i){
 
 		} // kick off new shortlist production (starts at dragend)
 
-		if (d3.select(this).classed('selected') && g.itemToFind === undefined) { showFlagTooltip(d) };  // generate tooltip for .selected countries
+		if (d3.select(this).classed('selected') && g.itemToFind === undefined) { showFlagTooltip(d); }  // generate tooltip for .selected countries
 
 } // mouseover events
 
@@ -1770,7 +1770,7 @@ function touchmove(){
 
 		}
 
-	}; // set identifiers on country, continent and region level. nearly the same logic as for mouseover, yet slightly more roundabout due to touch limitations
+	} // set identifiers on country, continent and region level. nearly the same logic as for mouseover, yet slightly more roundabout due to touch limitations
 
 	d3.selectAll('.hovered').classed('hovered', false); // remove all .hovered classes
 
@@ -1785,7 +1785,7 @@ function touchmove(){
 
 	if (!isNaN(g.mouseCentroid[0]) && g.findCentroid !== undefined && g.geoToFind !== undefined) {
 		var distance = d3.geo.distance(g.mouseCentroid, g.findCentroid); // only calculate if both have values and geoToFind is defined
-	}; // calulate the distance between mouse and country-to-find
+	} // calulate the distance between mouse and country-to-find
 
 	d3.selectAll('path#' + countryId)
 		.style('fill', g.kolor(distance)); // best effect ever (wasn't me - coincidental find, but stan likes it too) ! colours the searched countries more blue when further away and more red when close. all other countries remain base colour. hence shows the trace of all visited countires.
@@ -1851,11 +1851,11 @@ function flagTrigger(countryId){
 
 	d3.select('div#container').append('div').attr('id', 'lockElements'); // lay transparent div over element selection div in order to prevent 2 searches at a time which would cock up reprojection
 	d3.select('div#container').append('div').attr('id', 'lockCollection'); // lay transparent div over collection selection div in order to prevent 2 searches at a time which would cock up reprojection
-	d3.selectAll('img.subitem').transition().style('opacity', .7); // // add// remove visual clue that dragging is disabled  visual clue that dragging is disabled
+	d3.selectAll('img.subitem').transition().style('opacity', 0.7); // // add// remove visual clue that dragging is disabled  visual clue that dragging is disabled
 
 	/* point calculation and display */
 
-	getPoints('end', countryId) // calculate flag points
+	getPoints('end', countryId); // calculate flag points
 
 	vis.points.updateFlags(); // increase the vis.points flag counter
 	vis.points.updateTotal(); // increase the vis.points total counter
@@ -1899,7 +1899,7 @@ function animalTrigger(){
 
 	d3.select('div#container').append('div').attr('id', 'lockElements'); // lay transparent div over element selection div in order to disallow interaction with elements to prevent 2 searches at a time which would cock up reprojection
 	d3.select('div#container').append('div').attr('id', 'lockCollection'); // lay transparent div over collection selection div in order to disallow interaction with elements to prevent 2 searches at a time which would cock up reprojection
-	d3.selectAll('img.subitem').transition().style('opacity', .7); // // add/remove visual clue that dragging is disabled  visual clue that dragging is disabled
+	d3.selectAll('img.subitem').transition().style('opacity', 0.7); // // add/remove visual clue that dragging is disabled  visual clue that dragging is disabled
 	// both above rules get removed at the end of the setTimeout in setOriginalMapState()
 
 	/* point calculation and display */
@@ -1925,12 +1925,12 @@ function zoomIn() {
 		if(!d3.event.touches) {
 			g.project[g.project.type]
 				.scale(g.scale*1.2)
-				.translate([g.width/1.5 - d3.event.x*.5, g.height/1.5 - d3.event.y*.5])
+				.translate([g.width/1.5 - d3.event.x*0.5, g.height/1.5 - d3.event.y*0.5])
 				.rotate([r[0] - d3.event.movementX*1.2, 0, 0]); // the mousemove version
 		} else {
 			g.project[g.project.type]
 				.scale(g.scale*1.2)
-				.translate([g.width/1.5 - d3.event.touches[0].pageX*.5, g.height/1.5 - d3.event.touches[0].pageY*.5])
+				.translate([g.width/1.5 - d3.event.touches[0].pageX*0.5, g.height/1.5 - d3.event.touches[0].pageY*0.5])
 				.rotate([r[0] - d3.event.directionX * 1.2, 0, 0]); // the touch version
 		} // decide if touch or not depending on the touch array being available in the event object or not
 
@@ -2014,7 +2014,7 @@ function setOriginalMapState(time) {
 
 				d3.select('div#lockElements').remove(); // remove element-locking div
 				d3.select('div#lockCollection').remove(); // remove collection-locking div
-				d3.selectAll('img.subitem').transition().style('opacity', 1) // remove visual clue that dragging is disabled 
+				d3.selectAll('img.subitem').transition().style('opacity', 1); // remove visual clue that dragging is disabled 
 
 			}, time * 1.1); // re-instate the original pattern after transition duration
 
@@ -2032,9 +2032,9 @@ function setOriginalMapState(time) {
 
 			d3.select(defBackSel).call(trans.decolourPattern, '#ccc', time * 2.5); // transition the pattern background-colour to normal colour
 
-			d3.selectAll('path.world:not(.foundanimals):not(.selected):not(#sphere)').call(trans.decolour, '#ccc', time * .5);
+			d3.selectAll('path.world:not(.foundanimals):not(.selected):not(#sphere)').call(trans.decolour, '#ccc', time * 0.5);
 
-			d3.selectAll('path.world.selected:not(.foundanimals)').call(trans.decolour, '#FFED32', time * .5);
+			d3.selectAll('path.world.selected:not(.foundanimals)').call(trans.decolour, '#FFED32', time * 0.5);
 
 			g.zoomBouncer = false; // disallow zooming immediatley when found
 
@@ -2056,7 +2056,7 @@ function setOriginalMapState(time) {
 
 				d3.select('div#lockElements').remove(); // remove element-locking div
 				d3.select('div#lockCollection').remove(); // remove element-locking div
-				d3.selectAll('img.subitem').transition().style('opacity', 1) // remove visual clue that dragging is disabled
+				d3.selectAll('img.subitem').transition().style('opacity', 1); // remove visual clue that dragging is disabled
 
 			}, time * 2.5); // re-instate the original pattern after transition duration
 
@@ -2089,7 +2089,7 @@ function setOriginalMapState(time) {
 		setTimeout(function(){
 			d3.select('div#lockElements').remove(); // remove element-locking div
 			d3.select('div#lockCollection').remove(); // remove element-locking div
-			d3.selectAll('img.subitem').transition().style('opacity', 1) // remove visual clue that dragging is disabled 
+			d3.selectAll('img.subitem').transition().style('opacity', 1); // remove visual clue that dragging is disabled 
 		}, (time * 1.5)); // lock time a compromise between flags time (* 1) and animals time (* 2)
 
 		
@@ -2103,7 +2103,7 @@ function setProjection(){
 
 	var time = 500; // delay/duration var
 
-	reproject(.1); // current projection small
+	reproject(0.1); // current projection small
 
 	g.worldupdate.call(trans.project, time*1, time*0, 'cubic'); // world small
 	g.sphere.call(trans.project, time*1, time*0, 'cubic'); // sphere small
@@ -2129,8 +2129,8 @@ function setProjection(){
 
 	// new projection large
 	g.bounds = g.path.bounds(g.mapdata);
-  // g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * .75;
-  g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * (g.project.type === 'globe' ? .75 : .79); // flat world needs a slightly larger scale factor
+  // g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * 0.75;
+  g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * (g.project.type === 'globe' ? 0.75 : 0.79); // flat world needs a slightly larger scale factor
 
 	reproject(g.scale);
 
@@ -2141,7 +2141,7 @@ function setProjection(){
 	g.worldupdate.call(trans.project, time*1.5, time*1.1, 'elastic'); // world big
 	g.sphere.call(trans.project, time*1.5, time*1.1, 'elastic'); // sphere big
 
-	// 2.6*500 msec passed; 1.1 in order to leave some breathing space (.1) for the g.bounds and g.scale calculation
+	// 2.6*500 msec passed; 1.1 in order to leave some breathing space (0.1) for the g.bounds and g.scale calculation
 
 
 } // world size reduces, projection changes, world size increases; sphere gets only coloured for globe-, not for flat projection. for original function see v13 and previous
@@ -2179,7 +2179,7 @@ function finalTurn1() {
 		setStartMeasures(true);
 		
 		var distance = 360; // absolute distance from start- to end-angle
-		var velocity = .01675	; // .01675
+		var velocity = 0.01675	; // .01675
 
 		setSMILanim(true); // kick off SMIL animation
 		
@@ -2233,7 +2233,7 @@ function finalTurn2() {
 
 	setStartMeasures(true);
 
-	var velocity = .02; // .02
+	var velocity = 0.02; // .02
 
 	var maxIncrease = 1;
 	var maxDur = 5000;
@@ -2283,11 +2283,11 @@ function supernova(position) {
 	    .nodes(nodes)
 	    .links([])
 	    .size([width, height])
-			.gravity(.0005) // .1 attraction to focal point. 0 none - 1 quite a lot (can go > 1)
-			// .friction(.9) // .9 values in range [0,1], velocity decay, the higher the more decay
+			.gravity(0.0005); // 0.1 attraction to focal point. 0 none - 1 quite a lot (can go > 1)
+			// .friction(0.9) // 0.9 values in range [0,1], velocity decay, the higher the more decay
 			// .charge(-30) // -30 negative value: node repulsion - positive value: node attraction
-			// .theta(.8) //.8 not to worry - affects large clusters
-			// .alpha(.1); // changing doesn't change much.1 controls the cooling paramater deciding the time it takes the layout to settle
+			// .theta(0.8) // 0.8 not to worry - affects large clusters
+			// .alpha(0.1); // changing doesn't change much.1 controls the cooling paramater deciding the time it takes the layout to settle
 			// set up the force
 
 	g.force.on('tick', function(e) {
@@ -2325,7 +2325,7 @@ function supernova(position) {
 			clearInterval(interval); // stop after x miliseconds
 
 			setTimeout(function(){
-				changeForce(.1, 1);
+				changeForce(0.1, 1);
 				d3.selectAll('circle.shreds')
 					.transition()
 					.duration(4000)
@@ -2338,7 +2338,7 @@ function supernova(position) {
 				g.force.start();
 			}, 15000); // restart dance again 15
 			setTimeout(function(){
-				changeForce(1, .05);
+				changeForce(1, 0.05);
 			}, 18000); // pull them together 18
 			setTimeout(function(){
 				d3.selectAll('circle.shreds')
@@ -2352,7 +2352,7 @@ function supernova(position) {
 					.attr('r', 3);
 			}, 18700); // change colour and size of our supernova 18.7
 			setTimeout(function(){
-				changeForce(.1, .9);
+				changeForce(0.1, 0.9);
 				twitch(); // let the remainders twitch
 			}, 19000); // expand to agreeable sized ball of shreds 19
 			setTimeout(function(){
@@ -2393,7 +2393,7 @@ function supernova(position) {
 					.transition()
 					.duration(1000)
 					.delay(1000)
-					.style('opacity', .8); // build and show tooltip 
+					.style('opacity', 0.8); // build and show tooltip 
 
 				d3.select('div#audioContainer')
 					.append('audio')
@@ -2555,8 +2555,8 @@ function setStartMeasures(toggle) {
 
 function changeForce(gravity, friction) {
 
-	if(gravity === undefined) gravity = .1;
-	if(friction === undefined) friction = .9;
+	if(gravity === undefined) gravity = 0.1;
+	if(friction === undefined) friction = 0.9;
 
 	g.force
 		.gravity(gravity)
@@ -2649,7 +2649,7 @@ function resurrect() {
 		.transition()
 		.duration(time*2)
 		.style('opacity', 1)
-		.style('background-color', 'rgba(255, 255, 255, .2)');
+		.style('background-color', 'rgba(255, 255, 255, 0.2)');
 
 	d3.select('div.tooltip')
 		.style('border', null)
@@ -2661,7 +2661,7 @@ function resurrect() {
 	/* resize projection to normal */
 
 	g.bounds = g.path.bounds(g.mapdata);
-  g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * (g.project.type === 'globe' ? .75 : .79); // flat world needs a slightly larger scale factor
+  g.scale = Math.min(g.width / (g.bounds[1][0] - g.bounds[0][0]), g.height / (g.bounds[1][1] - g.bounds[0][1])) * (g.project.type === 'globe' ? 0.75 : 0.79); // flat world needs a slightly larger scale factor
 
 	reproject(g.scale);
 
@@ -2719,7 +2719,7 @@ function turn(distance, d) {
 	var startAngle = g.project[g.project.type].rotate()[0]; // start-angle
 	var dist = distance; // absolute distance from start- to end-angle
 
-	var velocity = .15;
+	var velocity = 0.15;
 	var then = Date.now();
 
   d3.timer(function() {
@@ -2761,14 +2761,14 @@ function highlightCountry(d) {
 
 	d3.select('path#' + d.id)
 		.transition()
-		.duration(time*.9)
+		.duration(time*0.9)
 		.ease('cubic-in-out')
 		.attr('transform', 'translate(' + (-x-width/2) + ', ' + (-y-height/2) + ') scale(2)') // scale moves the 0 x,y point x to the right and y to the bottom. the width and height is required to keep the path centered.
 		.style({'fill': 'darkorange', 'stroke': 'darkorange'}); // transition out
 
 	d3.select('path#' + d.id)
 		.transition()
-		.duration(time*.5)
+		.duration(time*0.5)
 		.delay(time)
 		.ease('bounce')
 		.attr('transform', 'translate(0, 0) scale(1)')
@@ -2884,14 +2884,14 @@ function showFlagTooltip(d) {
 	// prepare country info
 	var points = g.formatSep(g.flagpointsPerCountry[selectId].points).replace(/,/g, g.tooltipGeneral.seperator[g.lingoBouncer]);
 	var duration;
-	if (g.flagpointsPerCountry[selectId].time < .5) {
+	if (g.flagpointsPerCountry[selectId].time < 0.5) {
 		duration = g.tooltipGeneral.duration[g.lingoBouncer] + g.flagpointsPerCountry[selectId].time + g.tooltipGeneral.seconds.singular[g.lingoBouncer]; // singular with decimals
 	} else if (g.flagpointsPerCountry[selectId].time < 1.5) {
 		duration = g.tooltipGeneral.duration[g.lingoBouncer] + Math.round(g.flagpointsPerCountry[selectId].time) + g.tooltipGeneral.seconds.singular[g.lingoBouncer]; // singular without decimals
 	} else {
 		duration = g.tooltipGeneral.duration[g.lingoBouncer] + Math.round(g.flagpointsPerCountry[selectId].time) + g.tooltipGeneral.seconds.plural[g.lingoBouncer]; // plural without decimals
 	}
-	var area = g.flagpointsPerCountry[selectId].area < .5 ? g.flagpointsPerCountry[selectId].area : Math.round(g.flagpointsPerCountry[selectId].area);
+	var area = g.flagpointsPerCountry[selectId].area < 0.5 ? g.flagpointsPerCountry[selectId].area : Math.round(g.flagpointsPerCountry[selectId].area);
 	area = g.tooltipGeneral.size.flags[g.lingoBouncer] + area + g.tooltipGeneral.area[g.lingoBouncer];
 
 	// produce the tooltip html
@@ -2906,7 +2906,7 @@ function showFlagTooltip(d) {
 		<li class="foundanimals">' +  foundText + '</li>\
 		<li class="foundanimalsPics"></li>\
 		<li class="unfoundanimals">' + unfoundText + '</li>\
-	</ul>'
+	</ul>';
 
 	d3.select('div.tooltip')
 		.style('left', (d3.event.pageX + 5) + 'px')
@@ -2914,7 +2914,7 @@ function showFlagTooltip(d) {
 		.html(tooltipText)
 		.style('opacity', 0)
 		.transition()
-		.style('opacity', .8); // build and show tooltip 
+		.style('opacity', 0.8); // build and show tooltip 
 
 	if(anmlArrayFound.English.length < 1){
 		d3.selectAll('li.foundanimals').style('display', 'none');
@@ -2944,14 +2944,14 @@ function showAnimalTooltip(info){
 	// prepare tooltip info
 	var points = g.formatSep(g.animalpointsPerArea[animal].points).replace(/,/g, g.tooltipGeneral.seperator[g.lingoBouncer]);
 	var duration;
-	if (g.animalpointsPerArea[animal].time < .5) {
+	if (g.animalpointsPerArea[animal].time < 0.5) {
 		duration = g.tooltipGeneral.duration[g.lingoBouncer] + g.animalpointsPerArea[animal].time + g.tooltipGeneral.seconds.singular[g.lingoBouncer]; // singular with decimals
 	}	else if (g.animalpointsPerArea[animal].time < 1.5) {
 		duration = g.tooltipGeneral.duration[g.lingoBouncer] + Math.round(g.animalpointsPerArea[animal].time) + g.tooltipGeneral.seconds.singular[g.lingoBouncer]; // singular without decimals
 	} else {
 		duration = g.tooltipGeneral.duration[g.lingoBouncer] + Math.round(g.animalpointsPerArea[animal].time) + g.tooltipGeneral.seconds.plural[g.lingoBouncer]; // plural without decimals
 	} 
-	var area = g.animalpointsPerArea[animal].area < .5 ? g.animalpointsPerArea[animal].area : Math.round(g.animalpointsPerArea[animal].area);
+	var area = g.animalpointsPerArea[animal].area < 0.5 ? g.animalpointsPerArea[animal].area : Math.round(g.animalpointsPerArea[animal].area);
 	area = g.tooltipGeneral.size.animals[g.lingoBouncer] + area + g.tooltipGeneral.area[g.lingoBouncer];
 
 	// produce the tooltip html
@@ -2961,7 +2961,7 @@ function showAnimalTooltip(info){
 		<li>' + points + ' ' + g.tooltipGeneral.points[g.lingoBouncer] + '</li>\
 		<li>' + duration + '</li>\
 		<li>' + area + '</li>\
-	</ul>'
+	</ul>';
 	
 	// add the tooltip
 	d3.select('div.tooltip')
@@ -2969,7 +2969,7 @@ function showAnimalTooltip(info){
 		.style('left', coords.x + 'px')
 		.html(tooltipText)
 		.transition()
-		.style('opacity', .8);
+		.style('opacity', 0.8);
 	
 } // showAnimalTooltip() - takes the hovered over selection as input
 
@@ -3008,7 +3008,7 @@ function getAreaPointsLookup() {
 
 	var areaPoints = [];
 	steradianShr.forEach(function(el){
-		var delta = 1/el*.5;
+		var delta = 1/el*0.5;
 		var delta = delta.toFixed(3);
 		areaPoints.push(delta);
 	}); // inverse the points per country (largest gets fewest points - smallest gets most points). do for 1/2 of the espective flagpoints which produces a maximum of c. 30k. also reduce decimals.
@@ -3046,7 +3046,7 @@ function getPoints(trigger, id) {
 			g.prevTotalpoints = g.totalpoints; // totalpoints before respective flag found
 			
 			var thisFlagpoints = areaPointsLookup.flagpoints[id]; // get points for respective country 
-			thisFlagpoints = Math.round(thisFlagpoints * g.searchtimeFactor) // produce the final points
+			thisFlagpoints = Math.round(thisFlagpoints * g.searchtimeFactor); // produce the final points
 
 			g.flagpoints += thisFlagpoints; // add final flag points to the total
 			g.totalpoints += thisFlagpoints; // update the total points 
@@ -3113,32 +3113,32 @@ var trans = {};
 trans.foundDiv = function(element, dur) {
 	element.transition()
 		.duration(dur)
-		.style('opacity', .2);
-}
+		.style('opacity', 0.2);
+};
 
 trans.appearingElementDiv = function(element, divHeight) {
 	element.transition()
 		.delay(function(d,i) { return i*200; })
 		.style('height', divHeight + 'px');
-}
+};
 
 trans.appearingElementText = function(element, fontSize) {
 	element.transition()
 		.delay(function(d,i) { return i*200; })
 		.style('font-size', fontSize + 'px');
-}
+};
 
 trans.dragstartMoveElementInPosition = function(element) {
 	element.transition()
 		.style('left', (d3.mouse(this[0][0].parentNode)[0]) + 'px') // d3.mouse(of container), differs to calling it without named transition ([0][0])
 		.style('top', (d3.mouse(this[0][0].parentNode)[1]) + 'px');
-}
+};
 
 trans.dragendMoveElementBack = function(element, d) {
 	element.transition()
 		.style('left', d.xo + 'px')
 		.style('top', d.yo + 'px');
-}
+};
 
 trans.dragendMoveElementToCollection = function(element) {
 
@@ -3146,12 +3146,12 @@ trans.dragendMoveElementToCollection = function(element) {
 
 	element.transition()
 		.duration(500)
-		.style('left', (-body.clientWidth * .85) + 'px')
-		.style('top', (body.clientHeight * .85) + 'px')
+		.style('left', (-body.clientWidth * 0.85) + 'px')
+		.style('top', (body.clientHeight * 0.85) + 'px')
 		.style('height', '10px')
 		.style('opacity', 0);
 		
-}
+};
 
 
 trans.project = function(element, dur, del, eas){
@@ -3161,7 +3161,7 @@ trans.project = function(element, dur, del, eas){
 		.delay(del)
 		.ease(eas)
 		.attr('d', g.path.projection(g.project[g.project.type]));
-}
+};
 
 trans.projectLight = function(element, dur, del){
 
@@ -3170,7 +3170,7 @@ trans.projectLight = function(element, dur, del){
 		.delay(del)
 		.style({'stroke': '#D9EBFA', 'fill': '#D9EBFA'})
 		.attr('filter', null);  // added
-}
+};
 
 trans.projectDark = function(element, dur, del){
 
@@ -3179,9 +3179,9 @@ trans.projectDark = function(element, dur, del){
 		.delay(del)
 	// .style({'stroke': '#bbb', 'fill': '#050FE8'}); // removed
 		.style({'stroke': null, 'fill': null})  // added
-		.attr('filter', 'url(#glow)');  // added
-		
-}
+		.attr('filter', 'url(#glow)');  // added		
+
+};
 
 
 trans.decolour = function(element, col, dur) {
@@ -3191,25 +3191,25 @@ trans.decolour = function(element, col, dur) {
 		.style('stroke', '#999') // for animal search as borders get coloured as well (in the mono setting at least)
 		.style('fill', col); // .transition().duration(1e-6).style('fill', null); // I had this extra piece in here prior version 15. unsure as to why exactly, as it seems to work without. put back in if things go wrong with the decolouring during zoomOut
 
-}
+};
 
 trans.depatternPattern = function(element, time) {
 		
 	element.transition()
-		.duration(time * .2)
-		.delay(time * .8)
+		.duration(time * 0.2)
+		.delay(time * 0.8)
 		.attr('r', 0); // transition the pattern's pattern
 
-}
+};
 
 trans.decolourPattern = function(element, col, time) {
 	
 	element.transition()
-		.duration(time * .2)
-		.delay(time * .8)
+		.duration(time * 0.2)
+		.delay(time * 0.8)
 		.style('fill', col);
 	
-}
+};
 
 
 trans.heightImage = function(element, height){
@@ -3217,14 +3217,14 @@ trans.heightImage = function(element, height){
 	element.transition()
 		.style('height', height);
 
-}
+};
 
 trans.fontSizeImg = function(element, fontSize) {
 	
 	element.transition()
 		.style('font-size', fontSize);
 	
-}
+};
 
 
 
@@ -3267,7 +3267,7 @@ trans.fontSizeImg = function(element, fontSize) {
 			var startAngle = g.project[g.project.type].rotate()[0], // start-angle
 					dist = 360; // absolute distance from start- to end-angle
 
-			var velocity = .15,
+			var velocity = 0.15,
 		  		then = Date.now();
 
 		  d3.timer(function() {
@@ -3290,7 +3290,7 @@ trans.fontSizeImg = function(element, fontSize) {
 		var turnIt = turnFactory();
 		function turnFactory(){
 
-			var distance = 360, velocity = .015, scaleFactor = 1.5, setContinue = true;
+			var distance = 360, velocity = 0.015, scaleFactor = 1.5, setContinue = true;
 
 			function my(){
 
@@ -3323,7 +3323,7 @@ trans.fontSizeImg = function(element, fontSize) {
 						if (Math.abs(angle) > Math.abs(distance)) {
 	
 							var turnItAgain = turnFactory()
-								.velocity(.02)
+								.velocity(0.02)
 								.scaleFactor(2.5)
 								.setContinue(false);
 	
